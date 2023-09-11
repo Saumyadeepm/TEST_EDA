@@ -67,10 +67,11 @@ def automated_eda(data):
 
     # Correlation heatmap
     fig, ax = plt.subplots(figsize=(10, 8))
+    # Check for NaN values in the correlation matrix and replace them with zeros
+    correlation_matrix = correlation_matrix.fillna(0)
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
     plt.title('Correlation Heatmap')
     st.pyplot(fig)
-
     # Pairwise scatter plots (for numeric columns)
     if len(numeric_columns) >= 2:
         pair_plot = sns.pairplot(data=data, vars=numeric_columns)
