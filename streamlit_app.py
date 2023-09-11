@@ -11,6 +11,7 @@ import ydata_profiling
 from openpyxl import load_workbook
 import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
+import plotly.figure_factory as ff
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
