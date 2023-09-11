@@ -9,3 +9,4 @@ xlrd
 openpyxl
 streamlit-pandas-profiling
 pandas-profiling
+import plotly.figure_factory as ff
