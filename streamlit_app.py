@@ -195,7 +195,7 @@ if 'data' in locals():
     st.write(summary)
 
     st.write("#### Data Types:")
-    st.write(data_types)
+    st.dataframe(data_types)
 
     st.write("#### Missing Values:")
     st.write(missing_values)
