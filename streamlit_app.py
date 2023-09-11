@@ -9,7 +9,9 @@ import io
 import json
 import ydata_profiling
 from openpyxl import load_workbook
+import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
+
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.markdown("<h1 style='text-align: center; color: white;'>Automated EDA Using StreamLit</h1>", unsafe_allow_html=True)
@@ -252,7 +254,6 @@ if 'data' in locals():
         progress_bar = st.progress(0)
         status_text = st.empty()
         chart = st.line_chart(np.random.randn(10, 2))
-
 
         st_profile_report(pr)
         st.balloons()
