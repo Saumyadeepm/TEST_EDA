@@ -279,15 +279,19 @@ if 'data' in locals() and data is not None:
     if 'Automated EDA' in sdbar:
         datf = data
         st.write("Please Wait for Few Seconds.....")
-
+        # Create a placeholder for the progress bar
+        progress_bar = st.progress(0)
+        # Create a status text placeholder
+        status_text = st.empty()
         pr = data.profile_report(dark_mode=True)
 
-        progress_bar = st.progress(0)
-        status_text = st.empty()
-        chart = st.line_chart(np.random.randn(10, 2))
-
+        # Update the progress bar and status text
+        progress_bar.progress(50)  # You can adjust the percentage as needed
+        status_text.text("Report generated, loading...")
+        
         st_profile_report(pr)
-        st.balloons()
+        progress_bar.progress(100)
+        
 st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
 
 
