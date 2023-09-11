@@ -221,7 +221,7 @@ if 'data' in locals():
 
     if 'Descriptive Analysis' in sdbar:
         st.subheader('Descriptive Analysis:')
-        st.dataframe(data.describe(), width=1500)
+        st.dataframe(data.describe(), width=500)
     num_columns = data.select_dtypes(exclude='object').columns
     
     if 'Box Plots' in sdbar:
