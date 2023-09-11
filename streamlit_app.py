@@ -231,22 +231,47 @@ if 'data' in locals() and data is not None:
         st.dataframe(data.describe(), width=250)
     num_columns = data.select_dtypes(exclude='object').columns
     
-    if 'Box Plots' in sdbar:
+    # if 'Box Plots' in sdbar:
+    #     if len(num_columns) == 0:
+    #         st.write('There is no numerical columns in the data.')
+    #     else:
+    #         selected_num_cols = sidebar_multiselect_container('Choose columns for Box plots:', num_columns,
+    #                                                                     'Box')
+    #         st.subheader('Box plots')
+    #         i = 0
+    #         while (i < len(selected_num_cols)):
+    #             c1, c2 = st.columns(2)
+    #             for j in [c1, c2]:
+
+    #                 if (i >= len(selected_num_cols)):
+    #                     break
+
+    #                 fig = px.box(data, y=selected_num_cols[i])
+    #                 j.plotly_chart(fig, use_container_width=True)
+    #                 i += 1
+
+    if 'Plots' in sdbar:
         if len(num_columns) == 0:
-            st.write('There is no numerical columns in the data.')
+            st.write('There are no numerical columns in the data.')
         else:
-            selected_num_cols = sidebar_multiselect_container('Choose columns for Box plots:', num_columns,
-                                                                        'Box')
-            st.subheader('Box plots')
+            selected_num_cols = sidebar_multiselect_container('Choose columns for Plots:', num_columns, 'Plots')
+            plot_type = st.selectbox("Select plot type:", ["Box Plot", "Histogram", "Scatter Plot"])
+            st.subheader(f'{plot_type} Plots')
             i = 0
             while (i < len(selected_num_cols)):
                 c1, c2 = st.columns(2)
                 for j in [c1, c2]:
-
+    
                     if (i >= len(selected_num_cols)):
                         break
-
-                    fig = px.box(data, y=selected_num_cols[i])
+    
+                    if plot_type == "Box Plot":
+                        fig = px.box(data, y=selected_num_cols[i])
+                    elif plot_type == "Histogram":
+                        fig = px.histogram(data, x=selected_num_cols[i])
+                    elif plot_type == "Scatter Plot":
+                        fig = px.scatter(data, x=selected_num_cols[i], y=selected_num_cols[i])
+                    
                     j.plotly_chart(fig, use_container_width=True)
                     i += 1
 
