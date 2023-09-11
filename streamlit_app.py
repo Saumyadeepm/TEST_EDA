@@ -187,7 +187,7 @@ else:
             sheet_name = st.selectbox("Select a sheet (optional):", [""] + load_data(uploaded_file, file_format))
         data = load_data(uploaded_file, file_format, sheet_name=sheet_name)
 
-if 'data' in locals():
+if 'data' in locals() and data is not None:
     st.write("### Dataset Preview:")
     # Boolean to resize the dataframe, stored as a session state variable
     st.checkbox("Use container width", value=False, key="use_container_width")
