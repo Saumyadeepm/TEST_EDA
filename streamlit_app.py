@@ -58,12 +58,13 @@ def automated_eda(data):
 
     # Distribution plots
     for column in numeric_columns:
-        fig, ax = plt.subplots()
-        sns.histplot(data[column], kde=True)
-        plt.title(f'Distribution of {column}')
-        plt.xlabel(column)
-        plt.ylabel('Frequency')
-        st.pyplot(fig)
+        fig = go.Figure(data=[go.Histogram(x=data[column])])
+        fig.update_layout(
+            title=f'Distribution of {column}',
+            xaxis_title=column,
+            yaxis_title='Frequency'
+        )
+        st.plotly_chart(fig)
 
     # Correlation heatmap
     fig, ax = plt.subplots(figsize=(10, 8))
@@ -74,10 +75,9 @@ def automated_eda(data):
     st.pyplot(fig)
     # Pairwise scatter plots (for numeric columns)
     if len(numeric_columns) >= 2:
-        pair_plot = sns.pairplot(data=data, vars=numeric_columns)
-        pair_plot.fig.suptitle('Pairwise Scatter Plots')
-        st.pyplot(pair_plot.fig)
-
+    fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
+    st.plotly_chart(fig)
+    
     # Box plots (for numeric columns)
     for column in numeric_columns:
         fig, ax = plt.subplots()
@@ -102,14 +102,10 @@ def automated_eda(data):
         fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
         st.plotly_chart(fig)
 
-    # Histograms for numeric columns
+    # Interactive histogram for numeric columns
     for column in numeric_columns:
-        fig, ax = plt.subplots()
-        sns.histplot(data[column], kde=True)
-        plt.title(f'Histogram of {column}')
-        plt.xlabel(column)
-        plt.ylabel('Frequency')
-        st.pyplot(fig)
+        fig = px.histogram(data, x=column, title=f'Histogram of {column}')
+        st.plotly_chart(fig)
         
     return summary, data_types, missing_values, correlation_matrix
 
