@@ -91,8 +91,8 @@ def automated_eda(data):
     
     # Pairwise scatter plots (for numeric columns)
     if len(numeric_columns) >= 2:
-    fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
-    st.plotly_chart(fig)
+        fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
+        st.plotly_chart(fig)
     
     # Box plots (for numeric columns) using Plotly
     for column in numeric_columns:
