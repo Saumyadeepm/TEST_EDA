@@ -11,6 +11,50 @@ from openpyxl import load_workbook
 from streamlit_pandas_profiling import st_profile_report
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
+st.markdown("<h1 style='text-align: center; color: white;'>Automated EDA Using StreamLit</h1>", unsafe_allow_html=True)
+st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
+
+######Extra functions
+def datf_inf(df):
+    df.columns = df.columns.str.replace(' ', '_')
+    buffer = io.StringIO()
+    df.info(buf=buffer)
+    s = buffer.getvalue()
+
+    df_info = s.split('\n')
+
+    counts = []
+    names = []
+    nn_count = []
+    dtype = []
+    for i in range(5, len(df_info) - 3):
+        line = df_info[i].split()
+        counts.append(line[0])
+        names.append(line[1])
+        nn_count.append(line[2])
+        dtype.append(line[4])
+
+    df_info_dataframe = pd.DataFrame(
+        data={'#': counts, 'Column': names, 'Non-Null Count': nn_count, 'Data Type': dtype})
+    return df_info_dataframe.drop('#', axis=1)
+
+def sidebar_multiselect_container(massage, arr, key):
+    container = st.sidebar.container()
+    select_all_button = st.sidebar.checkbox("Select all for " + key + " plots")
+    if select_all_button:
+        selected_num_cols = container.multiselect(massage, arr, default=list(arr))
+    else:
+        selected_num_cols = container.multiselect(massage, arr, default=arr[0])
+
+    return selected_num_cols
+def datf_nval(df):
+    res = pd.DataFrame(df.isnull().sum()).reset_index()
+    res['Percentage'] = round(res[0] / df.shape[0] * 100, 2)
+    res['Percentage'] = res['Percentage'].astype(str) + '%'
+    return res.rename(columns={'index': 'Column', 0: 'Number of null values'})
+##############
+
+
 # Function to load data from different file formats
 def load_data(file_path, file_format, sheet_name=None):
     if file_format == 'CSV':
@@ -114,8 +158,7 @@ def automated_eda(data):
         
     return summary, data_types, missing_values, correlation_matrix
 
-# Streamlit App
-st.title("Automated EDA App")
+
 
 # Define file_format variable
 file_format = None
@@ -140,6 +183,8 @@ if 'data' in locals():
     st.write("### Dataset Preview:")
     # Boolean to resize the dataframe, stored as a session state variable
     st.checkbox("Use container width", value=False, key="use_container_width")
+    n, m = data.shape
+    st.write(f'<p style="font-size:130%">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True)
     st.dataframe(data, use_container_width=st.session_state.use_container_width)
 
     st.write("### Automated EDA:")
@@ -158,14 +203,54 @@ if 'data' in locals():
     st.write(correlation_matrix)
 
     
-    df_info = ['Automated EDA']
-    sdbar = st.multiselect("EDA Options: ", df_info)
-    # Button to perform EDA using Pandas Profiling
+    data_info = ['Info', 'Null Info', 'Box Plots', 'Descriptive Analysis', 'Automated EDA']
+
+
+    sdbar = st.sidebar.multiselect("EDA Options: ", data_info)
+
+    if 'Info' in sdbar:
+        st.subheader('Info:')
+        c1, c2, c3 = st.columns([1, 2, 1])
+        c2.dataframe(datf_inf(data))
+
+    if 'Null Info' in sdbar:
+        st.subheader('NA Value Information:')
+        if data.isnull().sum().sum() == 0:
+            st.write('There is not any NA value in your dataset.')
+        else:
+            c1, c2, c3 = st.columns([0.5, 2, 0.5])
+            c2.dataframe(datf_nval(data), width=1500)
+            st.markdown('')
+
+    if 'Descriptive Analysis' in sdbar:
+        st.subheader('Descriptive Analysis:')
+        st.dataframe(data.describe())
+    num_columns = data.select_dtypes(exclude='object').columns
+    
+    if 'Box Plots' in sdbar:
+        if len(num_columns) == 0:
+            st.write('There is no numerical columns in the data.')
+        else:
+            selected_num_cols = sidebar_multiselect_container('Choose columns for Box plots:', num_columns,
+                                                                        'Box')
+            st.subheader('Box plots')
+            i = 0
+            while (i < len(selected_num_cols)):
+                c1, c2 = st.columns(2)
+                for j in [c1, c2]:
+
+                    if (i >= len(selected_num_cols)):
+                        break
+
+                    fig = px.box(data, y=selected_num_cols[i])
+                    j.plotly_chart(fig, use_container_width=True)
+                    i += 1
+
     if 'Automated EDA' in sdbar:
-        datf = df
+        datf = data
         st.write("Please Wait for Few Seconds.....")
 
-        pr = df.profile_report(dark_mode=True)
+        pr = data.profile_report(dark_mode=True)
 
         progress_bar = st.progress(0)
         status_text = st.empty()
@@ -174,3 +259,13 @@ if 'data' in locals():
 
         st_profile_report(pr)
         st.balloons()
+st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
+
+
+pages = ["Page 1","Page 2"]
+section = st.sidebar.radio('', pages)
+
+if section == "Page 1":                  # This is the beginning of my first page
+
+    # add the link at the bottom of each page
+    st.markdown("<a href='#linkto_top'>Link to top</a>", unsafe_allow_html=True)
