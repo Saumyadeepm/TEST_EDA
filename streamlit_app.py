@@ -197,19 +197,15 @@ if 'data' in locals():
     st.write("#### Data Types:")
     st.dataframe(data_types)
 
-    st.write("#### Missing Values:")
-    st.write(missing_values)
-
-    st.write("#### Correlation Matrix:")
-    st.write(correlation_matrix)
+    
 
     
-    data_info = ['Info', 'Null Info', 'Box Plots', 'Descriptive Analysis', 'Automated EDA']
+    data_info = ['Datatype Info', 'Null Info', 'Box Plots', 'Descriptive Analysis', 'Automated EDA']
 
 
     sdbar = st.sidebar.multiselect("EDA Options: ", data_info)
 
-    if 'Info' in sdbar:
+    if 'Datatype Info' in sdbar:
         st.subheader('Info:')
         c1, c2, c3 = st.columns([1, 2, 1])
         c2.dataframe(datf_inf(data))
@@ -225,7 +221,7 @@ if 'data' in locals():
 
     if 'Descriptive Analysis' in sdbar:
         st.subheader('Descriptive Analysis:')
-        st.dataframe(data.describe())
+        st.dataframe(data.describe(), width=1500)
     num_columns = data.select_dtypes(exclude='object').columns
     
     if 'Box Plots' in sdbar:
