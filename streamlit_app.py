@@ -206,7 +206,7 @@ if 'data' in locals():
     sdbar = st.sidebar.multiselect("EDA Options: ", data_info)
 
     if 'Datatype Info' in sdbar:
-        st.subheader('Info:')
+        st.subheader('Datatype Info:')
         c1, c2, c3 = st.columns([1, 2, 1])
         c2.dataframe(datf_inf(data))
 
@@ -221,7 +221,7 @@ if 'data' in locals():
 
     if 'Descriptive Analysis' in sdbar:
         st.subheader('Descriptive Analysis:')
-        st.dataframe(data.describe(), width=1500)
+        c3.dataframe(data.describe(), width=1500)
     num_columns = data.select_dtypes(exclude='object').columns
     
     if 'Box Plots' in sdbar:
