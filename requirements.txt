@@ -8,3 +8,4 @@ ydata-profiling
 xlrd
 openpyxl
 streamlit-pandas-profiling
+pandas-profiling
