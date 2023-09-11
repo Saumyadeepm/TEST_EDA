@@ -66,37 +66,41 @@ def automated_eda(data):
         )
         st.plotly_chart(fig)
 
-    # Correlation heatmap
-    fig, ax = plt.subplots(figsize=(10, 8))
-    # Check for NaN values in the correlation matrix and replace them with zeros
-    correlation_matrix = correlation_matrix.fillna(0)
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-    plt.title('Correlation Heatmap')
-    st.pyplot(fig)
+    # Correlation heatmap using Plotly
+    if len(numeric_columns) >= 2:
+        corr_data = data[numeric_columns].corr()
+    
+        # Create a heatmap using Plotly's figure_factory
+        fig = ff.create_annotated_heatmap(
+            z=corr_data.values,
+            x=corr_data.columns,
+            y=corr_data.index,
+            colorscale='coolwarm',
+            showscale=True
+        )
+    
+        # Customize the layout
+        fig.update_layout(
+            title='Correlation Heatmap',
+            xaxis_title='Columns',
+            yaxis_title='Columns'
+        )
+    
+        st.plotly_chart(fig)
+
+    
     # Pairwise scatter plots (for numeric columns)
     if len(numeric_columns) >= 2:
     fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
     st.plotly_chart(fig)
     
-    # Box plots (for numeric columns)
+    # Box plots (for numeric columns) using Plotly
     for column in numeric_columns:
-        fig, ax = plt.subplots()
-        sns.boxplot(x=data[column])
-        plt.title(f'Box Plot of {column}')
-        plt.xlabel(column)
-        st.pyplot(fig)
+        fig = px.box(data, x=column, title=f'Box Plot of {column}')
+        st.plotly_chart(fig)
 
-    # Count plots (for categorical columns)
-    categorical_columns = data.select_dtypes(include=['object']).columns
-    for column in categorical_columns:
-        fig, ax = plt.subplots()
-        sns.countplot(data=data, x=column)
-        plt.title(f'Count Plot of {column}')
-        plt.xlabel(column)
-        plt.ylabel('Count')
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
 
+    
     # Interactive scatter plot matrix (using Plotly)
     if len(numeric_columns) >= 2:
         fig = px.scatter_matrix(data, dimensions=numeric_columns, title='Interactive Scatter Plot Matrix')
