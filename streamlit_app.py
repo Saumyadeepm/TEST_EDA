@@ -69,7 +69,12 @@ def load_data(file_path, file_format, sheet_name=None):
             return wb.sheetnames
         else:
             xls = pd.ExcelFile(file_path)
-            return xls.parse(sheet_name)
+            sheet_names = xls.sheet_names
+            if sheet_name in sheet_names:
+                return xls.parse(sheet_name)
+            else:
+                st.warning(f"Worksheet named '{sheet_name}' not found. Please select another sheet.")
+                return None  # Return None to indicate that the sheet was not found
     elif file_format == 'JSON':
         return pd.read_json(file_path)
     elif file_format == 'TSV':
