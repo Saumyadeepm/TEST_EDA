@@ -17,6 +17,11 @@ st.set_page_config(
         page_title="EDA Automation",
         page_icon="chart_with_upwards_trend",
         layout="wide",
+        menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
     )
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
