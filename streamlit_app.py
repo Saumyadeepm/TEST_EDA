@@ -14,7 +14,7 @@ from streamlit_pandas_profiling import st_profile_report
 import plotly.figure_factory as ff
 
 st.set_page_config(
-        page_title="EDA Automation App✨",
+        page_title="EDA Automation",
         page_icon="chart_with_upwards_trend",
         layout="wide",
         menu_items={
@@ -25,7 +25,7 @@ st.set_page_config(
     )
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-st.markdown("<h1 style='text-align: center; color: white;'>Automated EDA Using StreamLit</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: white;'>Automated EDA Using StreamLit✨🚀</h1>", unsafe_allow_html=True)
 st.markdown("<div id='linkto_top'></div>", unsafe_allow_html=True)
 
 ######Extra functions
