@@ -13,8 +13,7 @@ import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
 import plotly.figure_factory as ff
 
-url = "https://github.com/Gulafshanp"
-st.write("check out this [link](%s)" % url)
+
 st.set_page_config(
         page_title="EDA Automation",
         page_icon="chart_with_upwards_trend",
@@ -22,8 +21,7 @@ st.set_page_config(
         menu_items={
         'Get Help': 'https://github.com/Gulafshanp',
         'Report a bug': "https://github.com/Gulafshanp",
-        'About': """#### This *Streamlit* data exploration app, created by *Gulafshan*, provides automatic visual summaries for efficient dataset analysis.
-        ,"[link](%s)" % url)"""
+        'About': """#### This *Streamlit* data exploration app, created by *Gulafshan*, provides automatic visual summaries for efficient dataset analysis."""
     }
     )
 st.set_option('deprecation.showPyplotGlobalUse', False)
