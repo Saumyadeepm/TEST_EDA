@@ -14,13 +14,13 @@ from streamlit_pandas_profiling import st_profile_report
 import plotly.figure_factory as ff
 
 st.set_page_config(
-        page_title="EDA Automation",
+        page_title="EDA Automation App✨",
         page_icon="chart_with_upwards_trend",
         layout="wide",
         menu_items={
         'Get Help': 'https://github.com/Gulafshanp',
         'Report a bug': "https://github.com/Gulafshanp",
-        'About': """This streamlined data exploration app, created by Gulafshan,
+        'About': """This *Streamlit* data exploration app, created by *Gulafshan*,
         provides automatic visual summaries for efficient dataset analysis."""
     }
     )
