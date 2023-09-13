@@ -18,6 +18,7 @@ st.set_page_config(
         page_title="EDA Automation",
         page_icon="chart_with_upwards_trend",
         layout="wide",
+        initial_sidebar_state="collapsed",
         menu_items={
         'Get Help': 'https://github.com/Gulafshanp',
         'Report a bug': "https://github.com/Gulafshanp",
