@@ -22,7 +22,7 @@ st.set_page_config(
         menu_items={
         'Get Help': 'https://github.com/Gulafshanp',
         'Report a bug': "https://github.com/Gulafshanp",
-        'About': """#### This *Streamlit* data exploration app, created by *Gulafshan*, provides automatic visual summaries for efficient dataset analysis."""
+        'About': """#### This is a *Streamlit* data exploration app, created by *Gulafshan*, provides automatic visual summaries for efficient dataset analysis."""
     }
     )
 st.set_option('deprecation.showPyplotGlobalUse', False)
