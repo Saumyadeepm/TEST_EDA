@@ -13,7 +13,7 @@ import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
 import plotly.figure_factory as ff
 from pydantic import BaseModel, Field, PrivateAttr
-from pydantic_settings import BaseSettings
+import pydantic_settings 
 
 st.set_page_config(
         page_title="EDA Automation",
