@@ -12,6 +12,7 @@ from openpyxl import load_workbook
 import pandas_profiling
 from streamlit_pandas_profiling import st_profile_report
 import plotly.figure_factory as ff
+from pydantic_settings import BaseSettings
 
 
 st.set_page_config(
