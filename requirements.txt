@@ -9,3 +9,4 @@ xlrd
 openpyxl
 streamlit-pandas-profiling
 pandas-profiling
+pydantic-settings
